@@ -10,3 +10,17 @@ type Logger struct {
     Format string // logger formatter
 }
 ```
+
+## Monitoring
+Represents a monitoring configuration and ability to create a Sentry client and Prometheus handler.
+
+```go
+type Monitoring struct {
+	SentryDSN string // Sentry DSN
+	PromAddr  string // Prometheus address for metrics
+}
+```
+
+## Utility
+- `GetVersion` - returns the version of the application (hash commit)
+
