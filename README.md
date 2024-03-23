@@ -21,6 +21,22 @@ type Monitoring struct {
 }
 ```
 
+## DB
+Represents a DB connection.
+
+```go
+type DB struct {
+    Host        string // required
+    Port        int    // required
+    User        string // required
+    Password    string
+    DBName      string // required
+    Schema      string
+    MaxIdleConn int    // default=2
+    MaxOpenConn int
+}
+```
+
 ## Utility
 - `GetVersion` - returns the version of the application (hash commit)
 
