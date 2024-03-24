@@ -22,7 +22,7 @@ type Monitoring struct {
 ```
 
 ## DB
-Represents a DB connection.
+Represents a DB connection configuration.
 
 ```go
 type DB struct {
@@ -34,6 +34,19 @@ type DB struct {
     Schema      string
     MaxIdleConn int    // default=2
     MaxOpenConn int
+}
+```
+
+## Kafka
+Represents a Kafka consumer configuration.
+
+```go
+type KafkaInput struct {
+    ClientID      string // required
+    Brokers       string // required
+    ConsumerGroup string // required
+    OffsetOldest  bool  
+    Verbose       bool   // logging
 }
 ```
 
