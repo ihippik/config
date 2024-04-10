@@ -158,3 +158,14 @@ func NewSyncProducer(cfg *KafkaOutput) (sarama.SyncProducer, error) {
 
 	return producer, err
 }
+
+// PrepareMessage prepare Kafka message for sending.
+func PrepareMessage(topic string, message []byte) *sarama.ProducerMessage {
+	msg := &sarama.ProducerMessage{
+		Topic:     topic,
+		Partition: -1,
+		Value:     sarama.ByteEncoder(message),
+	}
+
+	return msg
+}
