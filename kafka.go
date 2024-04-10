@@ -20,6 +20,11 @@ type KafkaInput struct {
 	Verbose       bool   `yaml:"verbose" env:"VERBOSE"`
 }
 
+// KafkaOutput represent consumer configuration.
+type KafkaOutput struct {
+	Brokers string `yaml:"brokers" env:"BROKERS,required" valid:"required"`
+}
+
 // Consumer represent consumer group.
 type Consumer struct {
 	client sarama.ConsumerGroup
@@ -140,4 +145,16 @@ func initConsumerGroup(cfg *KafkaInput) (sarama.ConsumerGroup, error) {
 	}
 
 	return client, nil
+}
+
+// NewSyncProducer create new Sarama sync Producer.
+func NewSyncProducer(cfg *KafkaOutput) (sarama.SyncProducer, error) {
+	config := sarama.NewConfig()
+	config.Producer.Partitioner = sarama.NewRandomPartitioner
+	config.Producer.RequiredAcks = sarama.WaitForAll
+	config.Producer.Return.Successes = true
+
+	producer, err := sarama.NewSyncProducer(strings.Split(cfg.Brokers, ","), config)
+
+	return producer, err
 }
